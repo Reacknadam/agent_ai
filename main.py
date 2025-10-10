@@ -69,7 +69,7 @@ except Exception:
 APP_NAME = "Jules-v2++"
 MEMORY_FILE = ".jules_memory.json"
 MEMORY_MAX = 200 
-API_KEY = "AIzaSyDltpB9ooZV4hANfA3WiuaTZdV1ca1JsUk"
+API_KEY = "VOTRE PROPRE API DE GOOGLE AI"
 PROJECT_IGNORED = {"__pycache__", ".git", "node_modules", "venv", ".venv", "*.backup", MEMORY_FILE}
 SUPPORTED_EXT = {".py", ".js", ".ts", ".html", ".css", ".json", ".md", ".txt", ".sql", ".sh", ".yaml", ".yml"}
 MAX_CMD_OUTPUT = 5000
