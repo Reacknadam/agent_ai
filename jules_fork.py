@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 Jules AI - Agent IA Développeur avec Task Manager
-Version: 3.0.0
-Auteur: Exauce Stan Malka
-GitHub: https://github.com/votre-repo/jules-ai
+Version: 3.2.0
+Auteur: Exaustan Malka
+GitHub: https://github.com/Onestepcom00/agent_ai
 """
 
 from __future__ import annotations
@@ -59,11 +59,11 @@ except ImportError:
 # Configuration & Constants
 # ----------------------------
 APP_NAME = "Jules AI"
-APP_VERSION = "3.0.0"
+APP_VERSION = "3.2.0"
 MEMORY_FILE = "data/.jules_memory.json"
 MEMORY_MAX = 200 
-API_KEY = "PLACER_VOTRE_API_KEY_ICI"
-GENAI_DIR = "GenAI"  # Dossier dédié pour tous les projets générés
+API_KEY = "REMPLACEZ_AVEC_VOTRE_CLE_API"
+GENAI_DIR = "GenAI"
 
 console = Console()
 
@@ -138,7 +138,7 @@ class TaskManager:
 
             CRITÈRES IMPORTANTS:
             1. Structure le projet de manière PROFESSIONNELLE
-            2. Pour CHAQUE fichier, fournis du CODE COMPLET et FONCTIONNEL
+            2. Pour CHAQUE fichier de code, fournis du CODE COMPLET et FONCTIONNEL dans le champ "content"
             3. Organise les tâches par ORDRE LOGIQUE avec dépendances
             4. Sois EXHAUSTIF - inclus tous les fichiers nécessaires
             5. Le code doit être PRÊT À L'EMPLOI et BIEN STRUCTURÉ
@@ -150,23 +150,31 @@ class TaskManager:
                 "tasks": [
                     {{
                         "id": "task_1",
-                        "type": "create_dir|create_file|write_content|execute_shell|generate_code",
+                        "type": "create_dir",
                         "description": "Description détaillée de la tâche",
                         "target_path": "chemin/relatif/depuis/GenAI",
-                        "content": "CODE COMPLET ET FONCTIONNEL",
-                        "command": "commande shell si nécessaire",
-                        "dependencies": ["task_id_antérieure"]
+                        "dependencies": []
+                    }},
+                    {{
+                        "id": "task_2",
+                        "type": "write_content", 
+                        "description": "Créer le fichier principal avec code COMPLET",
+                        "target_path": "chemin/vers/fichier.extension",
+                        "content": "CODE COMPLET ET FONCTIONNEL ICI",
+                        "dependencies": ["task_1"]
                     }}
                 ]
             }}
 
-            EXEMPLES DE BONNES PRATIQUES:
-            - Pour un site web: HTML/CSS/JS complets avec structure responsive
-            - Pour une API: endpoints REST, modèles, middleware, tests
-            - Pour une app: composants, routing, state management
-            - Toujours inclure un README.md professionnel
+            INSTRUCTIONS SPÉCIFIQUES POUR LE CODE:
+            - Pour les fichiers HTML: fournis une page COMPLÈTE avec structure, contenu et balises
+            - Pour les fichiers CSS: fournis des styles COMPLETS et RESPONSIVES
+            - Pour les fichiers JavaScript: fournis du code FONCTIONNEL avec gestion d'événements
+            - Pour les fichiers Python: fournis du code EXÉCUTABLE avec fonctions et logique
+            - Pour les fichiers de configuration: fournis une configuration VALIDE et COMMENTÉE
 
             Réponds UNIQUEMENT avec le JSON, sans commentaires.
+            ASSURE-TOI D'INCLURE DU VRAI CODE DANS LE CHAMP "content" POUR TOUS LES FICHIERS IMPORTANTS.
             """
             
             try:
@@ -182,6 +190,9 @@ class TaskManager:
                 json_str = response.text.strip()
                 json_str = re.sub(r'```json\n?', '', json_str)
                 json_str = re.sub(r'\n?```', '', json_str)
+                
+                # Debug: Afficher un aperçu de la réponse
+                console.print(f"\n[dim]🤖 Réponse IA reçue: {len(json_str)} caractères[/]")
                 
                 plan_data = json.loads(json_str)
                 
@@ -204,28 +215,32 @@ class TaskManager:
                     created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                 )
                 
-                self.log(f"Plan créé: {self.current_plan.project_name} avec {len(tasks)} tâches", "success")
+                # Compter les tâches avec contenu
+                tasks_with_content = len([t for t in tasks if t.content and len(t.content) > 10])
+                self.log(f"Plan créé: {self.current_plan.project_name} avec {len(tasks)} tâches ({tasks_with_content} avec code)", "success")
                 return self.current_plan
                 
             except Exception as e:
                 self.log(f"Erreur lors de la création du plan: {e}", "error")
-                return self._create_fallback_plan(user_prompt)
+                return self._create_simple_fallback_plan(user_prompt)
     
-    def _create_fallback_plan(self, description: str) -> TaskPlan:
-        """Plan de secours avec structure basique"""
-        self.log("Utilisation du plan de secours", "warning")
+    def _create_simple_fallback_plan(self, description: str) -> TaskPlan:
+        """Plan de secours simple sans code pré-défini"""
+        self.log("Utilisation du plan de secours simple", "warning")
         
         tasks = [
-            Task(id="task_1", type=TaskType.CREATE_DIR, description="Créer la racine du projet", target_path=".", dependencies=[]),
-            Task(id="task_2", type=TaskType.CREATE_DIR, description="Créer le dossier source", target_path="src", dependencies=["task_1"]),
-            Task(id="task_3", type=TaskType.CREATE_DIR, description="Créer le dossier des assets", target_path="assets", dependencies=["task_1"]),
-            Task(id="task_4", type=TaskType.GENERATE_CODE, description="Créer le fichier principal", target_path="src/main.py", dependencies=["task_2"]),
-            Task(id="task_5", type=TaskType.GENERATE_CODE, description="Créer le fichier de configuration", target_path="config.py", dependencies=["task_1"]),
-            Task(id="task_6", type=TaskType.GENERATE_CODE, description="Créer le README du projet", target_path="README.md", dependencies=["task_1"]),
+            Task(id="task_1", type=TaskType.CREATE_DIR, description="Créer le dossier racine du projet", target_path="mon_projet", dependencies=[]),
+            Task(id="task_2", type=TaskType.CREATE_DIR, description="Créer le dossier pour les assets", target_path="mon_projet/assets", dependencies=["task_1"]),
+            Task(id="task_3", type=TaskType.CREATE_DIR, description="Créer le dossier source", target_path="mon_projet/src", dependencies=["task_1"]),
+            Task(id="task_4", type=TaskType.GENERATE_CODE, description="Créer la page principale HTML", target_path="mon_projet/index.html", dependencies=["task_1"]),
+            Task(id="task_5", type=TaskType.GENERATE_CODE, description="Créer les styles CSS principaux", target_path="mon_projet/assets/style.css", dependencies=["task_2"]),
+            Task(id="task_6", type=TaskType.GENERATE_CODE, description="Créer le script JavaScript principal", target_path="mon_projet/src/main.js", dependencies=["task_3"]),
+            Task(id="task_7", type=TaskType.GENERATE_CODE, description="Créer le fichier de configuration", target_path="mon_projet/package.json", dependencies=["task_1"]),
+            Task(id="task_8", type=TaskType.GENERATE_CODE, description="Créer la documentation du projet", target_path="mon_projet/README.md", dependencies=["task_1"]),
         ]
         
         self.current_plan = TaskPlan(
-            project_name=f"Projet {description[:20]}...",
+            project_name=f"Projet {description[:30]}...",
             tasks=tasks,
             created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         )
@@ -243,30 +258,42 @@ class TaskManager:
         table.add_column("Type", style="magenta", width=12)
         table.add_column("Description", style="white", width=40)
         table.add_column("Fichier", style="green", width=25)
-        table.add_column("Dépendances", style="yellow", width=15)
+        table.add_column("Code", style="yellow", width=8)
         
         for i, task in enumerate(self.current_plan.tasks, 1):
-            deps = ", ".join(task.dependencies) if task.dependencies else "Aucune"
+            has_content = "✅" if task.content and len(task.content) > 10 else "🔜" if task.type == TaskType.GENERATE_CODE else "📁"
             table.add_row(
                 str(i),
                 task.type.value,
                 task.description,
                 task.target_path,
-                deps
+                has_content
             )
         
         console.print(table)
         
-        # Statistiques
+        # Statistiques détaillées
+        total_tasks = len(self.current_plan.tasks)
+        tasks_with_content = len([t for t in self.current_plan.tasks if t.content and len(t.content) > 10])
+        generate_tasks = len([t for t in self.current_plan.tasks if t.type == TaskType.GENERATE_CODE])
+        
         stats_table = Table(box=box.SIMPLE)
         stats_table.add_column("Statistique", style="bold")
         stats_table.add_column("Valeur", style="green")
         
-        stats_table.add_row("Total des tâches", str(len(self.current_plan.tasks)))
-        stats_table.add_row("Tâches de code", str(len([t for t in self.current_plan.tasks if t.type in [TaskType.WRITE_CONTENT, TaskType.GENERATE_CODE]])))
+        stats_table.add_row("Total des tâches", str(total_tasks))
+        stats_table.add_row("Fichiers avec code fourni", f"{tasks_with_content}")
+        stats_table.add_row("Fichiers à générer", f"{generate_tasks}")
         stats_table.add_row("Dossiers à créer", str(len([t for t in self.current_plan.tasks if t.type == TaskType.CREATE_DIR])))
         
         console.print(Panel(stats_table, title="📊 Statistiques du Plan"))
+        
+        # Information sur la génération de code
+        if generate_tasks > 0:
+            console.print(Panel(
+                "💡 Les fichiers marqués '🔜' seront générés automatiquement pendant l'exécution",
+                style="blue"
+            ))
     
     def execute_plan(self) -> Dict[str, Any]:
         """Exécute le plan de tâches avec progression visuelle"""
@@ -277,6 +304,7 @@ class TaskManager:
         
         results = []
         successful_tasks = 0
+        total_code_generated = 0
         
         with Progress(
             SpinnerColumn(),
@@ -311,6 +339,16 @@ class TaskManager:
                     self.current_plan.completed_tasks += 1
                     successful_tasks += 1
                     
+                    # Compter le code généré
+                    if task.content and len(task.content) > 10:
+                        total_code_generated += len(task.content)
+                        self.log(f"Code écrit: {task.target_path} ({len(task.content)} caractères)", "success")
+                    elif "généré" in result.lower() or "generated" in result.lower():
+                        # Extraire la taille du code généré du message de résultat
+                        match = re.search(r'(\d+) caractères', result)
+                        if match:
+                            total_code_generated += int(match.group(1))
+                    
                     self.log(f"Terminé: {task.description}", "success")
                     progress.update(task_progress, completed=1)
                     
@@ -324,20 +362,29 @@ class TaskManager:
                 progress.update(main_task, advance=1)
                 progress.remove_task(task_progress)
                 
-                time.sleep(0.1)  # Petite pause pour la lisibilité
+                time.sleep(0.1)
         
         success_rate = (successful_tasks / self.current_plan.total_tasks) * 100
         
-        # Résumé final
+        # Résumé final détaillé
+        files_created = len([r for r in results if r["status"] == "completed" and r["type"] in ["write_content", "generate_code"]])
+        
         console.print(Panel(
             f"""🎉 **Exécution Terminée**
 
 📊 **Statistiques:**
 • Tâches totales: {self.current_plan.total_tasks}
 • Tâches réussies: {successful_tasks}
+• Fichiers créés: {files_created}
+• Code généré: {total_code_generated:,} caractères
 • Taux de succès: {success_rate:.1f}%
 
-📁 **Projet créé dans:** {self.project_path}""",
+📁 **Projet créé dans:** `{self.project_path}`
+
+💡 **Prochaines étapes:**
+1. Naviguez vers le dossier du projet
+2. Vérifiez les fichiers générés
+3. Lancez votre projet!""",
             style="green" if success_rate > 80 else "yellow" if success_rate > 50 else "red"
         ))
         
@@ -345,7 +392,8 @@ class TaskManager:
             "success": True,
             "plan": asdict(self.current_plan),
             "results": results,
-            "success_rate": success_rate
+            "success_rate": success_rate,
+            "code_generated": total_code_generated
         }
     
     def _check_dependencies(self, task: Task) -> bool:
@@ -366,7 +414,7 @@ class TaskManager:
             elif task.type == TaskType.EXECUTE_SHELL:
                 return self._execute_shell(task)
             elif task.type == TaskType.GENERATE_CODE:
-                return self._generate_code(task)
+                return self._generate_code_with_gemini(task)
             else:
                 return f"Type de tâche non supporté: {task.type}"
         except Exception as e:
@@ -389,10 +437,10 @@ class TaskManager:
         
         if task.content:
             file_path.write_text(task.content, encoding='utf-8')
-            return f"Contenu écrit: {task.target_path} ({len(task.content)} caractères)"
+            return f"Code fourni écrit: {task.target_path} ({len(task.content)} caractères)"
         else:
-            file_path.touch()
-            return f"Fichier vide créé: {task.target_path}"
+            # Si pas de contenu fourni par l'IA, générer du code avec Gemini
+            return self._generate_code_with_gemini(task)
     
     def _execute_shell(self, task: Task) -> str:
         if not task.command:
@@ -411,10 +459,11 @@ class TaskManager:
         except Exception as e:
             return f"Erreur commande: {str(e)}"
     
-    def _generate_code(self, task: Task) -> str:
+    def _generate_code_with_gemini(self, task: Task) -> str:
+        """Génère du code using Gemini pour les tâches GENERATE_CODE"""
         try:
             if genai is None:
-                return "Gemini non disponible"
+                return "Gemini non disponible pour la génération de code"
             
             client = genai.Client(api_key=API_KEY)
             
@@ -425,16 +474,17 @@ class TaskManager:
             Le code doit être:
             - FONCTIONNEL et PRÊT À L'EMPLOI
             - BIEN STRUCTURÉ et COMMENTÉ
-            - RESPECTER les bonnes pratiques
+            - RESPECTER les bonnes pratiques du langage
             - COMPLET avec toutes les fonctionnalités nécessaires
             
             Réponds UNIQUEMENT avec le code, sans explications.
             """
             
-            response = client.models.generate_content(
-                model="gemini-2.0-flash",
-                contents=[types.Content(role="user", parts=[types.Part(text=prompt)])],
-            )
+            with console.status(f"[bold blue]🤖 Génération du code pour {task.target_path}...") as status:
+                response = client.models.generate_content(
+                    model="gemini-2.0-flash",
+                    contents=[types.Content(role="user", parts=[types.Part(text=prompt)])],
+                )
             
             generated_code = response.text.strip()
             
@@ -442,10 +492,10 @@ class TaskManager:
             file_path.parent.mkdir(parents=True, exist_ok=True)
             file_path.write_text(generated_code, encoding='utf-8')
             
-            return f"Code généré: {task.target_path} ({len(generated_code)} caractères)"
+            return f"Code généré par Gemini: {task.target_path} ({len(generated_code)} caractères)"
             
         except Exception as e:
-            return f"Erreur génération: {str(e)}"
+            return f"Erreur lors de la génération de code: {str(e)}"
 
 # ----------------------------
 # Memory System
@@ -609,6 +659,7 @@ Sois concis, professionnel et efficace."""
         
         # Afficher le résumé final
         success_rate = results["success_rate"]
+        code_generated = results.get("code_generated", 0)
         
         if success_rate > 80:
             style = "bold green"
@@ -626,6 +677,7 @@ Sois concis, professionnel et efficace."""
 📊 **Résultats:**
 • Tâches totales: {self.task_manager.current_plan.total_tasks}
 • Tâches réussies: {self.task_manager.current_plan.completed_tasks}
+• Code généré: {code_generated:,} caractères
 • Taux de succès: {success_rate:.1f}%
 
 📁 **Emplacement:** `{self.project_path}`
