@@ -20,9 +20,7 @@ Si **Jules t’impressionne** ou te fait gagner du temps, tu peux **m’encourag
 
 ---
 
-<p align="center">
-  <img src="docs/ia.png" width="90%" alt="Bannière Jules">
-</p>
+[vision-demo](docs/ia.PNG)
 
 ---
 
