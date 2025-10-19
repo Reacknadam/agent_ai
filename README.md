@@ -1,5 +1,22 @@
-# 🧠 Jules v2.9 Enhanced  
-### L’agent IA qui voit, cherche, code, apprend… et **t’épate**.
+
+
+# 🧠 Jules v2.9 Enhanced
+
+### L’agent IA qui **voit, cherche, code, apprend… et t’épate.**
+
+---
+
+## 💰 Soutenir le projet
+
+Si **Jules t’impressionne** ou te fait gagner du temps, tu peux **m’encourager directement** 💪
+
+| Moyen de soutien                        | Détail                                                                                      |
+| --------------------------------------- | ------------------------------------------------------------------------------------------- |
+
+| 💳 **Paiement automatique via Chariow** | 👉 [https://brwqjjmk.mychariow.shop/israel-ltd](https://brwqjjmk.mychariow.shop/israel-ltd) |
+
+> 💡 Chaque dépot aide à **développer des nouvelles fonctions IA**, et maintenir **la version open source** gratuite pour tous.
+> Merci pour ton soutien 🙏
 
 ---
 
@@ -9,122 +26,115 @@
 
 ---
 
-## 🌟 30 secondes pour être convaincu
+## ⚡ Pourquoi Jules est différent
 
-| ✨ Fonctionnalité | 🔍 Ce que ça fait | 🎯 Pourquoi tu vas l’adorer |
-|---|---|---|
-| **Vision** 📸 | Glisse une **capture d’écran** → Jules génère le **HTML/CSS** correspondant en 5 s. | Plus besoin de coder une maquette à la main. |
-| **Recherche sémantique** 🔎 | « *Où est-ce que je gère les tokens JWT ?* » → Jules **comprend la question** et te sort les bons fichiers. | Fini `grep -r` qui te retourne 300 faux positifs. |
-| **Apprentissage perso** 🧠 | Tu lui montres **une fois** une compétence → il **s’en souvient** pour toutes les prochaines sessions. | Il devient **vraiment ton assistant**, pas un générique. |
-| **Patch intelligent** ✏️ | Il **modifie** le code sans tout ré-écrire (ajoute un log, wrap try/except, etc.). | Historique Git propre + review facile. |
-| **Auto-commit & push** 🚀 | Chaque série d’actions → **commit + push** avec un message clair. | Zero oubli, zero « WIP fix lol ». |
-| **Interface web** 🎨 | Un **chat Gradio** avec aperçu image, arborescence, logs en temps réel. | Tu peux tout faire **sans toucher le terminal**. |
+| ✨ Fonctionnalité                 | 🔍 Ce que ça fait                                                                             | 🎯 Pourquoi tu vas l’adorer                                   |
+| -------------------------------- | --------------------------------------------------------------------------------------------- | ------------------------------------------------------------- |
+| **Vision** 📸                    | Glisse une **capture d’écran** → Jules génère le **HTML/CSS** correspondant en 5 secondes.    | Crée une maquette complète **sans taper une ligne de code**.  |
+| **Recherche sémantique** 🔎      | « *Où est géré le token JWT ?* » → Jules **comprend le sens** et te montre les bons fichiers. | Oublie `grep` et les 300 faux résultats.                      |
+| **Apprentissage personnel** 🧠   | Tu lui apprends une règle une fois → il **s’en souvient pour toujours**.                      | Il devient **ton assistant personnel**, pas un bot générique. |
+| **Patch intelligent** ✏️         | Modifie ton code **sans tout réécrire** (log, try/except, décorateurs, etc.).                 | Historique Git propre + Review ultra claire.                  |
+| **Auto-commit & push** 🚀        | Chaque action = **commit + push automatique**.                                                | Plus de “WIP fix lol”.                                        |
+| **Interface web recommandée** 🌐 | Interface **moderne avec Gradio** : chat, arborescence, logs en direct, aperçu image.         | **Tout se fait dans le navigateur**, sans terminal.           |
 
----
-
-## 📸
-
-| Capture → Code en 1 clic | Recherche sémantique | Patch « try/except » auto |
-|---|---|---|
-| ![vision-demo](docs/ia.PNG) | 
-
-> Les GIFs sont stockés dans `docs/` (légers, < 2 Mo chacun).  
-> Clique dessus pour voir la **vitesse d'exécution réelle**.
+> 💡 **Recommandé :** Utilise toujours la **version web** (`python main.py --web`) pour profiter de toutes les fonctionnalités (vision, logs, interface fluide, upload d’images).
 
 ---
 
-## 🛠️ Installation ultra-rapide
+## 📸 Aperçu visuel
+
+| Capture → Code              | Recherche intelligente                 | Patch automatique                  |
+| --------------------------- | -------------------------------------- | ---------------------------------- |
+| ![vision-demo](docs/ia.PNG) | ![semantic-demo](docs/vision-demo.gif) | ![patch-demo](docs/patch-demo.gif) |
+
+> Les démos sont légères (<2 Mo chacune). Clique dessus pour voir la **vitesse réelle** d’exécution.
+
+---
+
+## ⚙️ Installation ultra-rapide
 
 ```bash
-# 1. Clone
-git clone https://github.com/Reacknadam/agent-ia.git 
+# 1️⃣ Clone le dépôt
+git clone https://github.com/Reacknadam/agent-ia.git  
+cd agent-ia
 
-# 2. Environnement (optionnel mais recommandé)
-python -m venv venv && source venv/bin/activate  # Windows : venv\Scripts\activate
+# 2️⃣ Active ton environnement (optionnel mais recommandé)
+python -m venv venv && source venv/bin/activate  # Sous Windows : venv\Scripts\activate
 
-# 3. Installe tout (inclut vision + sémantique)
+# 3️⃣ Installe les dépendances
 pip install -r requirements.txt
-# requirements.txt contient :
-# google-genai, gradio, rich, sentence-transformers, pillow, pyyaml, vulture, ruff
+# Contient : google-genai, gradio, rich, sentence-transformers, pillow, pyyaml, vulture, ruff
 
-# 4. Clé API (obtenue ici : https://aistudio.google.com/app/apikey)
-export GEMINI_API_KEY="ta_clé"
-# ou directement dans le code : GEMINI_API_KEY_HARDCODED = "ta_clé"
+# 4️⃣ Configure ta clé API Gemini
+# (à obtenir ici : https://aistudio.google.com/app/apikey)
+export GEMINI_API_KEY="ta_clé_api"
 
-# 5. Go !
-python main.py --web  # Interface web
+# 5️⃣ Lance Jules
+python main.py --web  # ✅ Version Web (recommandée)
 # ou
-python main.py        # CLI stylée
+python main.py        # Mode terminal (CLI)
 ```
 
 ---
 
-## 🎯 5 exemples ultra-courts
+## 🎯 Exemples express
 
-| Tu dis… | Jules fait… |
-|---|---|
-| « *Ajoute un log DEBUG après le calcul de total dans maths.py* » | Trouve la ligne, insère, vérifie, commit. |
-| « *Maquette cette capture* » (tu glisses l’image) | Génère `generated_ui.html` + `tailwind.css`. |
-| « *Où est la validation des tokens ?* » | Retourne fichiers + lignes exactes. |
-| « *Apprends que je veux toujours un decorator @timer sur mes fonctions lentes* » | Mémorise → l’appliquera automatiquement plus tard. |
-| « *Corrige les imports manquants et applique ruff* » | Fix + lint + commit. |
+| Tu dis…                                                          | Jules fait…                                   |
+| ---------------------------------------------------------------- | --------------------------------------------- |
+| « *Ajoute un log DEBUG après le calcul de total dans maths.py* » | Localise la ligne, insère, valide et commit.  |
+| « *Maquette cette capture* »                                     | Génère `generated_ui.html` + `tailwind.css`.  |
+| « *Où est la validation des tokens ?* »                          | Trouve fichiers + lignes précises.            |
+| « *Corrige les imports et applique ruff* »                       | Lint, corrige, commit.                        |
+| « *Apprends que je veux un @timer sur mes fonctions lentes* »    | Jules l’appliquera automatiquement plus tard. |
 
 ---
 
-## 📁 Arborescence générée
+## 📁 Structure du projet
 
 ```
 jules-v2/
-├── main.py                 # ⬅ tout le code (monofichier = facile à lire)
+├── main.py                 # Code principal (monofichier, lisible)
 ├── requirements.txt
-├── docs/                   # images & gifs
+├── docs/                   # Images & GIFs
 │   ├── jules-banner.png
 │   ├── vision-demo.gif
 │   ├── semantic-demo.gif
 │   └── patch-demo.gif
-├── README.md               # ⬅ vous êtes ici
+├── README.md               # ← Ce fichier
 └── .gitignore
 ```
 
 ---
 
-## 🧪 Tests & Qualité
+## 🧪 Qualité & Tests
 
 ```bash
 # Lint + auto-fix
 ruff check --fix main.py
 
-# Sécurité
+# Vérification sécurité
 bandit -r main.py
 
-# Benchmarks (intégrés)
-python main.py --benchmark  # lance la suite de projets tests
+# Benchmark (projets tests intégrés)
+python main.py --benchmark
 ```
 
 ---
 
-## 📈 Roadmap ouverte
+## 🛣️ Roadmap
 
-- [ ] Support **Vue / React** pour le vision-to-code  
-- [ ] **Voice input** (Whisper local)  
-- [ ] **Plugins pip** extérieurs (`jules-plugin-django`, `jules-plugin-fastapi`)  
-- [ ] **Mode équipe** : partage des compétences via serveur central  
-
----
-
-## 🙋‍♂️ Besoin d’aide ?
-
-- 📬 **Discussions** GitHub → question / idée  
-- 🐛 **Issues** → bug / amélioration  
-- 📖 **Wiki** → tutoriels pas-à-pas (bientôt)
+* [ ] Support **Vue.js / React** pour le Vision-to-Code
+* [ ] **Input vocal (Whisper local)**
+* [ ] **Plugins externes** (`jules-plugin-django`, `jules-plugin-fastapi`)
+* [ ] **Mode équipe** : partage des apprentissages entre membres
 
 ---
 
-## 🎉 Licence
+## 📜 Licence
 
-MIT → fais-en **ce que tu veux**, même dans un projet commercial.
+**MIT License** — libre d’utilisation, même pour un usage commercial.
 
 ---
 
-**⭐ Star le repo** si Jules t’a fait gagner 5 minutes (ou plus).  
-**🔔 Watch** pour être notifié des nouvelles features improbables.
+**⭐ Star le repo** si Jules t’a déjà fait gagner **5 minutes ou plus**.
+**🔔 Watch** le projet pour ne rien manquer des prochaines innovations.
