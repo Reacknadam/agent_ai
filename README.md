@@ -53,8 +53,8 @@ Si **Jules t’impressionne** ou te fait gagner du temps, tu peux **m’encourag
 
 ```bash
 # 1️⃣ Clone le dépôt
-git clone https://github.com/Reacknadam/agent-ia.git  
-cd agent-ia
+git clone https://github.com/Reacknadam/agent_ia.git  
+cd agent_ia
 
 # 2️⃣ Active ton environnement (optionnel mais recommandé)
 python -m venv venv && source venv/bin/activate  # Sous Windows : venv\Scripts\activate
