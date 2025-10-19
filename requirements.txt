@@ -1,0 +1,1 @@
+google-genai, gradio, rich, sentence-transformers, pillow, pyyaml, vulture, ruff
