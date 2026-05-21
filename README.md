@@ -2,6 +2,8 @@
 
 # Jules v2++ (agent_ai)
 
+# ce qui est fascinant est que il a lui meme amelioree son code, il s'est auto amelioree 
+
 **Un agent IA "codeur" single-file (Python)** — interface CLI (+ option Web via Gradio), intégration Google Gemini (`google-genai`) si disponible, mémoire locale, historique d'actions, commandes avancées (analyse, audit, refactor, génération de tests, docs...), et simulation/sandbox d'exécution shell.  
 Basé uniquement sur le fichier `main.py`.  [oai_citation:1‡GitHub](https://github.com/Reacknadam/agent_ai/raw/7ce76e9fd232673ad4bfed2ec5c3246f13a0e577/main.py)
 
@@ -103,38 +105,3 @@ Sécurité & limites importantes
 	•	Plusieurs analyses (audit, static, test coverage, synthèse) sont simulées ou placeholders : pour un audit réel, utilise des outils dédiés (bandit, mypy, flake8, pytest, coverage, etc.) et relie-les au script si tu veux un workflow complet.  ￼
 
 ⸻
-
-Suggestions / amélioration rapide
-	•	Extraire la clé API du fichier vers une variable d’environnement (GEMINI_API_KEY) ou un fichier .env non committé.
-	•	Ajouter un requirements.txt minimal :
-
-google-genai
-gradio
-rich
-
-
-	•	Ajouter un mode --dry-run pour les actions dangereuses (écritures fichier / commandes shell).
-	•	Documenter précisément le format ACTION: et fournir tests unitaires d’exemples (fixtures).
-
-⸻
-
-Contribution
-	1.	Fork → branche → PR.
-	2.	Respecte le style PEP8 et ajoute tests pour toute fonctionnalité nouvelle.
-	3.	N’ajoute pas de clés API au dépôt.
-
-⸻
-
-Licence
-
-Propose MIT si tu souhaites un repo permissif. (Ajoute LICENSE à la racine.)
-
-⸻
-
-Source
-
-Ce README a été rédigé en s’appuyant uniquement sur l’analyse du fichier main.py présent dans ce dépôt (commit/URL fourni). Pour les détails d’implémentation, consulte directement main.py.  ￼
-
-Si tu veux, je peux maintenant :
-- Générer un `requirements.txt` suggéré et un `.gitignore` minimal.  
-- Modifier le README pour ajouter des badges (PyPI, license
